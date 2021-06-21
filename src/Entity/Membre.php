@@ -54,9 +54,15 @@ class Membre
      */
     private $idPublication;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="membre", orphanRemoval=true)
+     */
+    private $ordres;
+
     public function __construct()
     {
         $this->idPublication = new ArrayCollection();
+        $this->ordres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -160,6 +166,36 @@ class Membre
             // set the owning side to null (unless already changed)
             if ($idPublication->getMembre() === $this) {
                 $idPublication->setMembre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrdres(): Collection
+    {
+        return $this->ordres;
+    }
+
+    public function addOrdre(Order $ordre): self
+    {
+        if (!$this->ordres->contains($ordre)) {
+            $this->ordres[] = $ordre;
+            $ordre->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdre(Order $ordre): self
+    {
+        if ($this->ordres->removeElement($ordre)) {
+            // set the owning side to null (unless already changed)
+            if ($ordre->getMembre() === $this) {
+                $ordre->setMembre(null);
             }
         }
 
