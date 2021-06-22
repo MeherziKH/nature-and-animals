@@ -4,8 +4,6 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\OrderDetailsRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,11 +20,6 @@ class OrderDetails
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="quantity")
-     */
-    private $products;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $quantity;
@@ -34,40 +27,11 @@ class OrderDetails
     /**
      * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="details")
      */
-    private $orderID;
-
-    public function __construct()
-    {
-        $this->products = new ArrayCollection();
-    }
+    private $ordr;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
-
-    public function addProduct(Product $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        $this->products->removeElement($product);
-
-        return $this;
     }
 
     public function getQuantity(): ?int
@@ -82,14 +46,14 @@ class OrderDetails
         return $this;
     }
 
-    public function getOrderID(): ?Order
+    public function getOrdr(): ?Order
     {
-        return $this->orderID;
+        return $this->ordr;
     }
 
-    public function setOrderID(?Order $orderID): self
+    public function setOrdr(?Order $ordr): self
     {
-        $this->orderID = $orderID;
+        $this->ordr = $ordr;
 
         return $this;
     }

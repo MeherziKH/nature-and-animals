@@ -27,12 +27,7 @@ class Category
     private $libelle;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category")
      */
     private $products;
 
@@ -54,18 +49,6 @@ class Category
     public function setLibelle(string $libelle): self
     {
         $this->libelle = $libelle;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
 
         return $this;
     }

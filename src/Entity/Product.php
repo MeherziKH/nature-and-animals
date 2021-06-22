@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ProductRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ApiResource()
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
 class Product
@@ -35,25 +35,14 @@ class Product
     private $image;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer")
      */
-    private $description;
+    private $quantity;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $category;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=OrderDetails::class, mappedBy="products")
-     */
-    private $details;
-
-    public function __construct()
-    {
-        $this->details = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -96,14 +85,14 @@ class Product
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getQuantity(): ?int
     {
-        return $this->description;
+        return $this->quantity;
     }
 
-    public function setDescription(?string $description): self
+    public function setQuantity(int $quantity): self
     {
-        $this->description = $description;
+        $this->quantity = $quantity;
 
         return $this;
     }
@@ -116,33 +105,6 @@ class Product
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|OrderDetails[]
-     */
-    public function getDetails(): Collection
-    {
-        return $this->details;
-    }
-
-    public function addDetails(OrderDetails $details): self
-    {
-        if (!$this->details->contains($details)) {
-            $this->details[] = $details;
-            $details->addProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDetails(OrderDetails $details): self
-    {
-        if ($this->details->removeElement($details)) {
-            $details->removeProduct($this);
-        }
 
         return $this;
     }

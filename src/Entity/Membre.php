@@ -55,13 +55,12 @@ class Membre
     private $idPublication;
 
     /**
-     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="membre", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="membre")
      */
     private $ordres;
 
     public function __construct()
     {
-        $this->idPublication = new ArrayCollection();
         $this->ordres = new ArrayCollection();
     }
 
@@ -201,4 +200,5 @@ class Membre
 
         return $this;
     }
+
 }

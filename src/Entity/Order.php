@@ -30,7 +30,7 @@ class Order
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $statut;
+    private $status;
 
     /**
      * @ORM\Column(type="float")
@@ -39,12 +39,11 @@ class Order
 
     /**
      * @ORM\ManyToOne(targetEntity=Membre::class, inversedBy="ordres")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $membre;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="orderID")
+     * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="ordr")
      */
     private $details;
 
@@ -70,14 +69,14 @@ class Order
         return $this;
     }
 
-    public function getStatut(): ?string
+    public function getStatus(): ?string
     {
-        return $this->statut;
+        return $this->status;
     }
 
-    public function setStatut(string $statut): self
+    public function setStatus(string $status): self
     {
-        $this->statut = $statut;
+        $this->status = $status;
 
         return $this;
     }
@@ -118,7 +117,7 @@ class Order
     {
         if (!$this->details->contains($detail)) {
             $this->details[] = $detail;
-            $detail->setOrderID($this);
+            $detail->setOrdr($this);
         }
 
         return $this;
@@ -128,8 +127,8 @@ class Order
     {
         if ($this->details->removeElement($detail)) {
             // set the owning side to null (unless already changed)
-            if ($detail->getOrderID() === $this) {
-                $detail->setOrderID(null);
+            if ($detail->getOrdr() === $this) {
+                $detail->setOrdr(null);
             }
         }
 
