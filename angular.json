@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "nature-and-animals"
+    }
+  },
+  "defaultProject": "nature-and-animals",
+  "cli": {
+    "analytics": false
+  }
 }
