@@ -2,12 +2,30 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;             
 use App\Repository\PublicationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
+ * @ApiResource(
+ *      collectionOperations={"get","post"},
+ *      itemOperations={
+ *          "get",
+ *          "post"= {
+ *              "method"="POST",
+ *              "path"="/publications",
+ *              "controller"=PublicationController::class,
+ *              "normalization_context"={"groups"={"publication"}},
+ *          }
+ *      },
+ *      
+ * )
  * @ORM\Entity(repositoryClass=PublicationRepository::class)
  */
+
 class Publication
 {
     /**
@@ -18,21 +36,26 @@ class Publication
     private $id;
 
     /**
+     * @Groups("publication")
      * @ORM\Column(type="string", length=255)
      */
     private $description;
 
     /**
+     * @Groups("publication")
      * @ORM\Column(type="date")
      */
     private $date;
 
     /**
+     * @ApiSubresource
+     * @Groups("publication")
      * @ORM\OneToOne(targetEntity=Animal::class, cascade={"persist", "remove"})
      */
     private $id_animal;
 
     /**
+     * @Groups("publication")
      * @ORM\Column(type="string", length=255)
      */
     private $status;
@@ -41,6 +64,27 @@ class Publication
      * @ORM\ManyToOne(targetEntity=Membre::class, inversedBy="idPublication")
      */
     private $membre;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $file;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $location;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="publications")
+     */
+    private $type;
+
 
     public function getId(): ?int
     {
@@ -103,6 +147,54 @@ class Publication
     public function setMembre(?Membre $membre): self
     {
         $this->membre = $membre;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getFile(): ?string
+    {
+        return $this->file;
+    }
+
+    public function setFile(?string $file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?string $location): self
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
