@@ -80,6 +80,11 @@ class Publication
      */
     private $location;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="publications")
+     */
+    private $type;
+
 
     public function getId(): ?int
     {
@@ -178,6 +183,18 @@ class Publication
     public function setLocation(?string $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
