@@ -54,9 +54,20 @@ class Membre
      */
     private $idPublication;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Consultation::class, mappedBy="membre_id")
+     */
+    private $consultations;
+
+    /**
+     * @ORM\OneToMany(targetEntity=NoteVet::class, mappedBy="membre_id")
+     */
+    private $noteVets;
+
     public function __construct()
     {
-        $this->idPublication = new ArrayCollection();
+        $this->consultations = new ArrayCollection();
+        $this->noteVets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -165,4 +176,66 @@ class Membre
 
         return $this;
     }
+
+    /**
+     * @return Collection|Consultation[]
+     */
+    public function getConsultations(): Collection
+    {
+        return $this->consultations;
+    }
+
+    public function addConsultation(Consultation $consultation): self
+    {
+        if (!$this->consultations->contains($consultation)) {
+            $this->consultations[] = $consultation;
+            $consultation->setMembreId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConsultation(Consultation $consultation): self
+    {
+        if ($this->consultations->removeElement($consultation)) {
+            // set the owning side to null (unless already changed)
+            if ($consultation->getMembreId() === $this) {
+                $consultation->setMembreId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|NoteVet[]
+     */
+    public function getNoteVets(): Collection
+    {
+        return $this->noteVets;
+    }
+
+    public function addNoteVet(NoteVet $noteVet): self
+    {
+        if (!$this->noteVets->contains($noteVet)) {
+            $this->noteVets[] = $noteVet;
+            $noteVet->setMembreId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNoteVet(NoteVet $noteVet): self
+    {
+        if ($this->noteVets->removeElement($noteVet)) {
+            // set the owning side to null (unless already changed)
+            if ($noteVet->getMembreId() === $this) {
+                $noteVet->setMembreId(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }
