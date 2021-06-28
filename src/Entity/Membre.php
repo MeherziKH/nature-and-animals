@@ -4,47 +4,58 @@ namespace App\Entity;
 
 use App\Repository\MembreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
+ * @ApiResource(normalizationContext= {"groups" = {"read"}})
  * @ORM\Entity(repositoryClass=MembreRepository::class)
  */
 class Membre
 {
     /**
      * @ORM\Id
+     * @Groups("read")
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $prenom;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $login;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $password;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $tel;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $email;

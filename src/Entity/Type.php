@@ -7,51 +7,63 @@ use App\Repository\TypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
- * @ApiResource()
+ * @ApiResource(normalizationContext= {"groups" = {"read"}}))
  * @ORM\Entity(repositoryClass=TypeRepository::class)
  */
+
+
 class Type
 {
     /**
      * @ORM\Id
+     * @Groups("read")
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $description;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="boolean")
      */
     private $refAnimal;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="boolean")
      */
     private $image;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="boolean")
      */
     private $lieu;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="boolean")
      */
     private $file;
 
     /**
+     * @Groups("read")
      * @ORM\OneToMany(targetEntity=Publication::class, mappedBy="type")
      */
     private $publications;
@@ -139,6 +151,7 @@ class Type
     }
 
     /**
+     * @Groups("read")
      * @return Collection|Publication[]
      */
     public function getPublications(): Collection
