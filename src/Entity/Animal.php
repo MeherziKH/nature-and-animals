@@ -5,9 +5,12 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AnimalRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *  normalizationContext= {"groups" = {"read"}})
  * @ORM\Entity(repositoryClass=AnimalRepository::class)
  */
 class Animal
@@ -16,50 +19,60 @@ class Animal
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("read")
      */
     private $id;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nom;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $race;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $couleur;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="date", nullable=true)
      */
     private $date_naissance;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="float", nullable=true)
      */
     private $poids;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $description;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $type;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $status;
