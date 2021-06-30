@@ -11,6 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
+ * normalizationContext= {"groups" = {"read"}},
  *      collectionOperations={"get","post"},
  *      itemOperations={
  *          "get",
@@ -18,7 +19,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "method"="POST",
  *              "path"="/publications",
  *              "controller"=PublicationController::class,
- *              "normalization_context"={"groups"={"publication"}},
  *          }
  *      },
  *      
@@ -26,9 +26,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=PublicationRepository::class)
  */
 
+
 class Publication
 {
     /**
+    * @Groups("read")
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -36,46 +38,49 @@ class Publication
     private $id;
 
     /**
-     * @Groups("publication")
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $description;
 
     /**
-     * @Groups("publication")
+     * @Groups("read")
      * @ORM\Column(type="date")
      */
     private $date;
 
     /**
-     * @ApiSubresource
-     * @Groups("publication")
+     * @Groups("read")
      * @ORM\OneToOne(targetEntity=Animal::class, cascade={"persist", "remove"})
      */
     private $id_animal;
 
     /**
-     * @Groups("publication")
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $status;
 
     /**
+     * @Groups("read")
      * @ORM\ManyToOne(targetEntity=Membre::class, inversedBy="idPublication")
      */
     private $membre;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $file;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $location;
@@ -115,11 +120,15 @@ class Publication
         return $this;
     }
 
+    /**
+     * @Groups("read")
+     */
     public function getIdAnimal(): ?Animal
     {
         return $this->id_animal;
     }
 
+    
     public function setIdAnimal(?Animal $id_animal): self
     {
         $this->id_animal = $id_animal;
