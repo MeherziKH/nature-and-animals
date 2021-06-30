@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8b8dad8d-6621-4153-a828-40a97b6d9604" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Controller/ProductController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/product/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20210621193939.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20210628133150.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20210622132905.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20210627183124.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Category.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ProductRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProductRepository.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +192,13 @@
       <workItem from="1624287722518" duration="383000" />
       <workItem from="1624357186051" duration="3187000" />
       <workItem from="1624469250046" duration="624000" />
-      <workItem from="1624868992748" duration="759000" />
+      <workItem from="1624868992748" duration="1043000" />
+      <workItem from="1624872372474" duration="2351000" />
+      <workItem from="1624908748118" duration="704000" />
+      <workItem from="1624973568354" duration="550000" />
+      <workItem from="1624993550923" duration="4507000" />
+      <workItem from="1625033754059" duration="384000" />
+      <workItem from="1625034256482" duration="727000" />
     </task>
     <servers />
   </component>
@@ -205,10 +218,18 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1624270857336">
+    <state x="137" y="0" width="1092" height="728" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1625034140215">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1624270857336" />
+    <state x="137" y="0" width="1092" height="728" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1625034140215" />
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1625003355234">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1625003355234" />
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1624973717586">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1624973717586" />
     <state x="389" y="0" width="587" height="728" key="find.popup" timestamp="1624139867746">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
