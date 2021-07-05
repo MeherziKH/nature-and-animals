@@ -11,7 +11,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 
 /**
- * @ApiResource(normalizationContext= {"groups" = {"read"}}))
+ * @ApiResource(normalizationContext= {"groups" = {"read"}},
+ * denormalizationContext= {"groups" = {"write"}}
+ * )
  * @ORM\Entity(repositoryClass=TypeRepository::class)
  */
 
@@ -27,37 +29,37 @@ class Type
     private $id;
 
     /**
-     * @Groups("read")
+     * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
-     * @Groups("read")
+     * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255)
      */
     private $description;
 
     /**
-     * @Groups("read")
+     * @Groups({"read", "write"})
      * @ORM\Column(type="boolean")
      */
     private $refAnimal;
 
     /**
-     * @Groups("read")
+     * @Groups({"read", "write"})
      * @ORM\Column(type="boolean")
      */
     private $image;
 
     /**
-     * @Groups("read")
+     * @Groups({"read", "write"})
      * @ORM\Column(type="boolean")
      */
     private $lieu;
 
     /**
-     * @Groups("read")
+     * @Groups({"read", "write"})
      * @ORM\Column(type="boolean")
      */
     private $file;
