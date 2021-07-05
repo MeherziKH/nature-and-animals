@@ -7,30 +7,52 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\PublicationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 
 /**
  * @ApiResource(
  * normalizationContext= {"groups" = {"read"}},
- *      collectionOperations={"get","post"},
- *      itemOperations={
- *          "get",
- *          "post"= {
- *              "method"="POST",
- *              "path"="/publications",
- *              "controller"=PublicationController::class,
- *          }
- *      },
- *      
+ * collectionOperations={
+ *      "get",
+ *      "post" :{
+ * 
+ *     "openapi_context" : {
+ *               "requestBody" :{
+ *                  "content" : {
+ *                       "multipart/form-data" :{
+ *                           "schema" : {
+ *                               "type" : "object",
+ *                               "properties" : {
+ *                                   "imageFile" :{
+ *                                       "type" : "string",
+ *                                       "format" : "binary",
+ *                                   },
+ *                                  "description" : {"type":"string"},
+ *                                 "date" : {"type":"string"},
+ *                                 "type" : {"type":"string"},
+*                                   "status" : {"type":"string"},
+
+ *                              },
+ *                          },
+*                        },
+*                   },
+      *          },
+      *     },
+ *       }
+ * },
  * )
  * @ORM\Entity(repositoryClass=PublicationRepository::class)
+ * 
  */
 
 
 class Publication
 {
     /**
-    * @Groups("read")
+    *  @Groups("read")
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -66,6 +88,12 @@ class Publication
      * @ORM\ManyToOne(targetEntity=Membre::class, inversedBy="idPublication")
      */
     private $membre;
+
+
+    /**
+     * @Vich\UploadableField(mapping="media_object", fileNameProperty="image")
+     */
+    public  $imageFile ;
 
     /**
      * @Groups("read")
