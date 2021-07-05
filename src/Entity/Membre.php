@@ -2,44 +2,55 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MembreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ * @ApiResource(
+ *     normalizationContext= {"groups" = {"read"}}
+ * )
  * @ORM\Entity(repositoryClass=MembreRepository::class)
  */
 class Membre
 {
     /**
      * @ORM\Id
+     * @Groups("read")
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $prenom;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $login;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $password;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $tel;
@@ -55,14 +66,14 @@ class Membre
     private $idPublication;
 
     /**
-     * @ORM\OneToMany(targetEntity=Consultation::class, mappedBy="membre_id")
-     */
-    private $consultations;
-
-    /**
      * @ORM\OneToMany(targetEntity=NoteVet::class, mappedBy="membre_id")
      */
     private $noteVets;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Consultation::class, mappedBy="membre")
+     */
+    private $consultations;
 
     public function __construct()
     {
@@ -178,36 +189,6 @@ class Membre
     }
 
     /**
-     * @return Collection|Consultation[]
-     */
-    public function getConsultations(): Collection
-    {
-        return $this->consultations;
-    }
-
-    public function addConsultation(Consultation $consultation): self
-    {
-        if (!$this->consultations->contains($consultation)) {
-            $this->consultations[] = $consultation;
-            $consultation->setMembreId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeConsultation(Consultation $consultation): self
-    {
-        if ($this->consultations->removeElement($consultation)) {
-            // set the owning side to null (unless already changed)
-            if ($consultation->getMembreId() === $this) {
-                $consultation->setMembreId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|NoteVet[]
      */
     public function getNoteVets(): Collection
@@ -231,6 +212,41 @@ class Membre
             // set the owning side to null (unless already changed)
             if ($noteVet->getMembreId() === $this) {
                 $noteVet->setMembreId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return(string)$this->getId();
+    }
+
+    /**
+     * @return Collection|Consultation[]
+     */
+    public function getConsultations(): Collection
+    {
+        return $this->consultations;
+    }
+
+    public function addConsultation(Consultation $consultation): self
+    {
+        if (!$this->consultations->contains($consultation)) {
+            $this->consultations[] = $consultation;
+            $consultation->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConsultation(Consultation $consultation): self
+    {
+        if ($this->consultations->removeElement($consultation)) {
+            // set the owning side to null (unless already changed)
+            if ($consultation->getMembre() === $this) {
+                $consultation->setMembre(null);
             }
         }
 

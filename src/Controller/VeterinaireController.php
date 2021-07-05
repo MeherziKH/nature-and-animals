@@ -25,4 +25,5 @@ class VeterinaireController extends AbstractController
         $vets=$this->getDoctrine()->getRepository(Veterinaire::class)->findAll();
         return $this->render("veterinaire/listVeterinaires.html.twig",array('listVeterinaires'=>$vets));
     }
+
 }

@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\NoteVet;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class NoteVetController extends AbstractController
 {
@@ -17,4 +20,24 @@ class NoteVetController extends AbstractController
             'controller_name' => 'NoteVetController',
         ]);
     }
+    /**
+     * @Route("/api/consultations", name="add", methods={"POST"})
+     */
+    /*public function addNote(Request $request, SerializerInterface $serialize)
+    {
+        $note = new NoteVet();
+
+        $content = $request->getContent();
+        $data    = $serialize->deserialize($content,NoteVet::class,'json');
+
+        $note->setStatus($data->getStatus());
+        $note->setDescription($data->getDescription());
+        $note->setDate( $data->getDate());
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($note);
+        $entityManager->flush();
+
+        return new Response('okkk', 201);
+    }*/
 }

@@ -7,9 +7,15 @@ use App\Repository\VeterinaireRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={"get", "post"},
+ *     itemOperations={"get", "put", "delete"},
+ *     normalizationContext={"groups"={"read"}},
+ *     paginationItemsPerPage=6
+ * )
  * @ORM\Entity(repositoryClass=VeterinaireRepository::class)
  */
 class Veterinaire
@@ -18,6 +24,7 @@ class Veterinaire
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
      */
     private $id;
 
@@ -33,11 +40,13 @@ class Veterinaire
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read")
      */
     private $prenom;
 
@@ -53,35 +62,42 @@ class Veterinaire
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read")
      */
     private $lundi;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read")
      */
     private $mardi;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read")
      */
     private $mercredi;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $jeudi;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $vendredi;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $samedi;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $adr_cabinet;
@@ -102,14 +118,14 @@ class Veterinaire
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity=Consultation::class, mappedBy="vet_id")
-     */
-    private $consultations;
-
-    /**
      * @ORM\OneToMany(targetEntity=NoteVet::class, mappedBy="vet_id")
      */
     private $noteVets;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Consultation::class, mappedBy="vet")
+     */
+    private $consultations;
 
     public function __construct()
     {
@@ -315,35 +331,6 @@ class Veterinaire
         return $this;
     }
 
-    /**
-     * @return Collection|Consultation[]
-     */
-    public function getConsultations(): Collection
-    {
-        return $this->consultations;
-    }
-
-    public function addConsultation(Consultation $consultation): self
-    {
-        if (!$this->consultations->contains($consultation)) {
-            $this->consultations[] = $consultation;
-            $consultation->setVetId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeConsultation(Consultation $consultation): self
-    {
-        if ($this->consultations->removeElement($consultation)) {
-            // set the owning side to null (unless already changed)
-            if ($consultation->getVetId() === $this) {
-                $consultation->setVetId(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|NoteVet[]
@@ -375,4 +362,38 @@ class Veterinaire
         return $this;
     }
 
+    /**
+     * @return Collection|Consultation[]
+     */
+    public function getConsultations(): Collection
+    {
+        return $this->consultations;
+    }
+
+    public function addConsultation(Consultation $consultation): self
+    {
+        if (!$this->consultations->contains($consultation)) {
+            $this->consultations[] = $consultation;
+            $consultation->setVet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConsultation(Consultation $consultation): self
+    {
+        if ($this->consultations->removeElement($consultation)) {
+            // set the owning side to null (unless already changed)
+            if ($consultation->getVet() === $this) {
+                $consultation->setVet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this.$this->getPrenom();
+    }
 }

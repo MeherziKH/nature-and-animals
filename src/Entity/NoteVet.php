@@ -5,9 +5,14 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\NoteVetRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={"get", "post"},
+ *     itemOperations={"get", "put", "delete"},
+ *     normalizationContext={"groups"={"read"}}
+ * )
  * @ORM\Entity(repositoryClass=NoteVetRepository::class)
  */
 class NoteVet
@@ -20,18 +25,21 @@ class NoteVet
     private $id;
 
     /**
+     * @Groups("read")
      * @ORM\ManyToOne(targetEntity=Membre::class, inversedBy="noteVets")
      * @ORM\JoinColumn(nullable=false)
      */
     private $membre_id;
 
     /**
+     * @Groups("read")
      * @ORM\ManyToOne(targetEntity=Veterinaire::class, inversedBy="noteVets")
      * @ORM\JoinColumn(nullable=false)
      */
     private $vet_id;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="integer")
      */
     private $note;
@@ -76,4 +84,5 @@ class NoteVet
 
         return $this;
     }
+
 }
