@@ -5,14 +5,16 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\OrderDetailsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(normalizationContext= {"groups" = {"read"}})
  * @ORM\Entity(repositoryClass=OrderDetailsRepository::class)
  */
 class OrderDetails
 {
     /**
+     * @Groups("read")
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -20,14 +22,22 @@ class OrderDetails
     private $id;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="integer")
      */
     private $quantity;
 
     /**
+
      * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="details")
      */
     private $ordr;
+
+    /**
+     * @Groups("read")
+     * @ORM\Column(type="integer")
+     */
+    private $product;
 
     public function getId(): ?int
     {
@@ -54,6 +64,18 @@ class OrderDetails
     public function setOrdr(?Order $ordr): self
     {
         $this->ordr = $ordr;
+
+        return $this;
+    }
+
+    public function getProduct(): int
+    {
+        return $this->product;
+    }
+
+    public function setProduct(int $product): self
+    {
+        $this->product = $product;
 
         return $this;
     }
