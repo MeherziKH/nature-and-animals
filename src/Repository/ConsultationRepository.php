@@ -47,4 +47,11 @@ class ConsultationRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function getBy($id)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.membre_id LIKE :id')
+            ->setParameter('id' , $id)
+            ->getQuery()->getResult();
+    }
 }

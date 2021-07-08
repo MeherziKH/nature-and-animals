@@ -5,18 +5,18 @@
         <td>mem</td>
         <td>date</td>
     </tr>
-    {% for consul in consultations %}
+    {% for cons in consultations %}
         <tr>
             <td>
-                {{ consul.id }}
+                {{ cons.id }}
             </td>
             <td>
-                {{ consul.vet }}
+                {{ cons.vet }}
             </td>
             <td>
-                {{ consul.membre }}
+                {{ cons.membre }}
             </td>
-            <td>{{ consul.date }}
+            <td>{{ cons.date }}
             </td>
         </tr>
     {% endfor %}

@@ -24,11 +24,12 @@ class Veterinaire
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     *
+     *@Groups("read")
      */
     private $id;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $login;
@@ -123,6 +124,7 @@ class Veterinaire
     private $noteVets;
 
     /**
+     *
      * @ORM\OneToMany(targetEntity=Consultation::class, mappedBy="vet")
      */
     private $consultations;
