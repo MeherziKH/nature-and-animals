@@ -14,7 +14,18 @@ use Cantiga\Metamodel\Exception\DiskAssetException;
 use LogicException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
- * @ApiResource(normalizationContext= {"groups" = {"read"}})
+ * @ApiResource(
+ * normalizationContext= {"groups" = {"read"}},
+ * collectionOperations={
+ *      "get",
+ *      "post" :{
+ *      "input_formats" : {
+ *             "multipart" : {"multipart/form-data"}
+ *          }
+
+ * },
+ * }
+ * )
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  *
  */
@@ -29,14 +40,14 @@ class Product
     private $id;
 
     /**
-     * @Groups("read")
+     * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255)
      */
     private $libelle;
 
     /**
-     * @Groups("read")
-     * @ORM\Column(type="float")
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255)
      */
     private $price;
 
@@ -47,8 +58,16 @@ class Product
     private $image;
 
     /**
-     * @Groups("read")
-     * @ORM\Column(type="integer")
+     * @Groups("write")
+     * @Vich\UploadableField(mapping="media_object", fileNameProperty="image")
+     * @var File
+     */
+    private  $imageFile ;
+
+
+    /**
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255)
      */
     private $quantity;
 
@@ -59,8 +78,8 @@ class Product
     private $category;
 
     /**
-     * @Groups("read")
-     * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $local;
 
@@ -68,6 +87,15 @@ class Product
      * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="product")
      */
     private $OrderDetails;
+
+    /**
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $liked;
+
+
+    private $targetDirectory = "media/products/";
 
     public function __construct()
     {
@@ -92,12 +120,12 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?float
+    public function getPrice(): ?string
     {
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice(string $price): self
     {
         $this->price = $price;
 
@@ -116,12 +144,12 @@ class Product
         return $this;
     }
 
-    public function getQuantity(): ?int
+    public function getQuantity(): ?string
     {
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity): self
+    public function setQuantity(string $quantity): self
     {
         $this->quantity = $quantity;
 
@@ -140,12 +168,12 @@ class Product
         return $this;
     }
 
-    public function getLocal(): ?int
+    public function getLocal(): ?string
     {
         return $this->local;
     }
 
-    public function setLocal(?int $local): self
+    public function setLocal(?string $local): self
     {
         $this->local = $local;
 
@@ -182,6 +210,56 @@ class Product
         return $this;
     }
 
+    public function getLiked(): ?string
+    {
+        return $this->liked;
+    }
 
+    public function setLiked(?string $liked): self
+    {
+        $this->liked = $liked;
+
+        return $this;
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        $hashedName = sha1($image->getBasename() . filemtime($image->getPath()));
+        $extension = strtolower($image->getClientOriginalExtension());
+        $finalName = $hashedName . '.' . $extension;
+        while (file_exists($this->targetDirectory . DIRECTORY_SEPARATOR . $this->hashToLocation($finalName))) {
+            $hashedName .= '1';
+            $finalName = $hashedName . '.' . $extension;
+        }
+        $hashed = $this->hashToLocation($finalName);
+        $directory = $this->targetDirectory;
+        if (!is_dir($directory)) {
+            $ret = mkdir($directory, 0777, true);
+            if (!$ret) {
+                throw new DiskAssetException('Cannot create a directory for uploading the files!');
+            }
+        }
+        $image->move($directory, $hashed);
+        $this->image = $directory .DIRECTORY_SEPARATOR. $finalName;
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    private function hashToLocation($name)
+    {
+        if (strlen($name) < 40) {
+            throw new LogicException('This is not a hash: ' . $name);
+        }
+        $firstLevel = $name[0];
+        $secondLevel = $firstLevel . $name[1];
+        return $firstLevel . DIRECTORY_SEPARATOR . $secondLevel . DIRECTORY_SEPARATOR . $name;
+    }
 
 }
