@@ -7,10 +7,16 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Cantiga\Metamodel\Exception\DiskAssetException;
+use LogicException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * @ApiResource(normalizationContext= {"groups" = {"read"}})
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ *
  */
 class Product
 {
@@ -48,7 +54,6 @@ class Product
 
 
     /**
-     * @Groups("read")
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
      */
     private $category;
@@ -58,6 +63,16 @@ class Product
      * @ORM\Column(type="integer", nullable=true)
      */
     private $local;
+
+    /**
+     * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="product")
+     */
+    private $OrderDetails;
+
+    public function __construct()
+    {
+        $this->OrderDetails = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -113,10 +128,6 @@ class Product
         return $this;
     }
 
-
-    /**
-     * @Groups("read")
-     */
     public function getCategory(): ?Category
     {
         return $this->category;
@@ -141,6 +152,35 @@ class Product
         return $this;
     }
 
+    /**
+     * @return Collection|OrderDetails[]
+     */
+    public function getOrderDetails(): Collection
+    {
+        return $this->OrderDetails;
+    }
+
+    public function addOrderDetail(OrderDetails $orderDetail): self
+    {
+        if (!$this->OrderDetails->contains($orderDetail)) {
+            $this->OrderDetails[] = $orderDetail;
+            $orderDetail->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderDetail(OrderDetails $orderDetail): self
+    {
+        if ($this->OrderDetails->removeElement($orderDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($orderDetail->getProduct() === $this) {
+                $orderDetail->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
 
 
 

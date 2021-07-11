@@ -43,6 +43,7 @@ class Order
     private $sum;
 
     /**
+     * @Groups("read")
      * @ORM\ManyToOne(targetEntity=Membre::class, inversedBy="ordres")
      */
     private $membre;

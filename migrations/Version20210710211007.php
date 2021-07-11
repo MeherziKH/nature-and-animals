@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210704161838 extends AbstractMigration
+final class Version20210710211007 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,11 +20,12 @@ final class Version20210704161838 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE order_details DROP FOREIGN KEY FK_845CA2C1BB1A0722');
-        $this->addSql('DROP INDEX IDX_845CA2C1BB1A0722 ON order_details');
-        $this->addSql('ALTER TABLE order_details CHANGE details_id product_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE order_details ADD product_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE order_details ADD CONSTRAINT FK_845CA2C14584665A FOREIGN KEY (product_id) REFERENCES product (id)');
         $this->addSql('CREATE INDEX IDX_845CA2C14584665A ON order_details (product_id)');
+        $this->addSql('ALTER TABLE product DROP FOREIGN KEY FK_D34A04AD8C0FA77');
+        $this->addSql('DROP INDEX IDX_D34A04AD8C0FA77 ON product');
+        $this->addSql('ALTER TABLE product DROP order_details_id');
     }
 
     public function down(Schema $schema): void
@@ -32,8 +33,9 @@ final class Version20210704161838 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE order_details DROP FOREIGN KEY FK_845CA2C14584665A');
         $this->addSql('DROP INDEX IDX_845CA2C14584665A ON order_details');
-        $this->addSql('ALTER TABLE order_details CHANGE product_id details_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE order_details ADD CONSTRAINT FK_845CA2C1BB1A0722 FOREIGN KEY (details_id) REFERENCES product (id)');
-        $this->addSql('CREATE INDEX IDX_845CA2C1BB1A0722 ON order_details (details_id)');
+        $this->addSql('ALTER TABLE order_details DROP product_id');
+        $this->addSql('ALTER TABLE product ADD order_details_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE product ADD CONSTRAINT FK_D34A04AD8C0FA77 FOREIGN KEY (order_details_id) REFERENCES order_details (id)');
+        $this->addSql('CREATE INDEX IDX_D34A04AD8C0FA77 ON product (order_details_id)');
     }
 }
