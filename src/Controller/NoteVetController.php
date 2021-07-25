@@ -21,9 +21,9 @@ class NoteVetController extends AbstractController
         ]);
     }
     /**
-     * @Route("/api/consultations", name="add", methods={"POST"})
+     * @Route("/api/note_vet", name="add", methods={"POST"})
      */
-    /*public function addNote(Request $request, SerializerInterface $serialize)
+    public function addNote(Request $request, SerializerInterface $serialize)
     {
         $note = new NoteVet();
 
@@ -39,5 +39,5 @@ class NoteVetController extends AbstractController
         $entityManager->flush();
 
         return new Response('okkk', 201);
-    }*/
+    }
 }

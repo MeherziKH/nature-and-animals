@@ -64,6 +64,11 @@ class Animal
      */
     private $status;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Veterinaire::class, inversedBy="animals")
+     */
+    private $vet;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -173,6 +178,18 @@ class Animal
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getVet(): ?Veterinaire
+    {
+        return $this->vet;
+    }
+
+    public function setVet(?Veterinaire $vet): self
+    {
+        $this->vet = $vet;
 
         return $this;
     }

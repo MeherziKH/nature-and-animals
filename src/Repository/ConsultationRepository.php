@@ -49,8 +49,8 @@ class ConsultationRepository extends ServiceEntityRepository
     */
     public function getBy($id)
     {
-        return $this->createQueryBuilder('p')
-            ->where('p.membre_id LIKE :id')
+        return $this->createQueryBuilder('c')
+            ->where('c.membre LIKE :id')
             ->setParameter('id' , $id)
             ->getQuery()->getResult();
     }

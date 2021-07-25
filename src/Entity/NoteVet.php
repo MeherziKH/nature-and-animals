@@ -11,7 +11,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *     collectionOperations={"get", "post"},
  *     itemOperations={"get", "put", "delete"},
- *     normalizationContext={"groups"={"read"}}
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
  * )
  * @ORM\Entity(repositoryClass=NoteVetRepository::class)
  */
@@ -21,25 +22,26 @@ class NoteVet
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("read","write")
      */
     private $id;
 
     /**
-     * @Groups("read")
+     * @Groups("read","write")
      * @ORM\ManyToOne(targetEntity=Membre::class, inversedBy="noteVets")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $membre_id;
+    private $membre;
 
     /**
-     * @Groups("read")
+     * @Groups("read","write")
      * @ORM\ManyToOne(targetEntity=Veterinaire::class, inversedBy="noteVets")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $vet_id;
+    private $vet;
 
     /**
-     * @Groups("read")
+     * @Groups("read","write")
      * @ORM\Column(type="integer")
      */
     private $note;
@@ -51,24 +53,24 @@ class NoteVet
 
     public function getMembreId(): ?Membre
     {
-        return $this->membre_id;
+        return $this->membre;
     }
 
-    public function setMembreId(?Membre $membre_id): self
+    public function setMembreId(?Membre $membre): self
     {
-        $this->membre_id = $membre_id;
+        $this->membre = $membre;
 
         return $this;
     }
 
     public function getVetId(): ?Veterinaire
     {
-        return $this->vet_id;
+        return $this->vet;
     }
 
-    public function setVetId(?Veterinaire $vet_id): self
+    public function setVetId(?Veterinaire $vet): self
     {
-        $this->vet_id = $vet_id;
+        $this->vet = $vet;
 
         return $this;
     }

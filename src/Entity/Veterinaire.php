@@ -14,6 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     collectionOperations={"get", "post"},
  *     itemOperations={"get", "put", "delete"},
  *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
  *     paginationItemsPerPage=6
  * )
  * @ORM\Entity(repositoryClass=VeterinaireRepository::class)
@@ -24,97 +25,103 @@ class Veterinaire
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     *@Groups("read")
+     * @Groups("read","write")
      */
     private $id;
 
     /**
-     * @Groups("read")
+     * @Groups("read","write")
      * @ORM\Column(type="string", length=255)
      */
     private $login;
 
     /**
+     * @Groups("read","write")
      * @ORM\Column(type="string", length=255)
      */
     private $pwd;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read")
+     * @Groups("read","write")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read")
+     * @Groups("read","write")
      */
     private $prenom;
 
     /**
+     * @Groups("read","write")
      * @ORM\Column(type="string", length=255)
      */
     private $email;
 
     /**
+     * @Groups("read","write")
      * @ORM\Column(type="string", length=255)
      */
     private $status;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read")
+     * @Groups("read","write")
      */
     private $lundi;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read")
+     * @Groups("read","write")
      */
     private $mardi;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read")
+     * @Groups("read","write")
      */
     private $mercredi;
 
     /**
-     * @Groups("read")
+     * @Groups("read","write")
      * @ORM\Column(type="string", length=255)
      */
     private $jeudi;
 
     /**
-     * @Groups("read")
+     * @Groups("read","write")
      * @ORM\Column(type="string", length=255)
      */
     private $vendredi;
 
     /**
-     * @Groups("read")
+     * @Groups("read","write")
      * @ORM\Column(type="string", length=255)
      */
     private $samedi;
 
     /**
-     * @Groups("read")
+     * @Groups("read","write")
      * @ORM\Column(type="string", length=255)
      */
-    private $adr_cabinet;
+    private $adrcabinet;
+
+    /**
+     * @Groups("read","write")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $numpro;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read","write")
      */
-    private $num_pro;
+    private $numfixe;
 
     /**
      * @ORM\Column(type="string", length=255)
-     */
-    private $num_fixe;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @Groups("read","write")
      */
     private $type;
 
@@ -129,18 +136,35 @@ class Veterinaire
      */
     private $consultations;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups("read","write")
+     */
+    private $photo;
+
+    /**
+     * @Groups("read","write")
+     * @ORM\OneToMany(targetEntity=Animal::class, mappedBy="vet")
+     */
+    private $animals;
+
     public function __construct()
     {
         $this->consultations = new ArrayCollection();
         $this->noteVets = new ArrayCollection();
+        $this->animals = new ArrayCollection();
     }
 
-
+    /**
+     * @Groups("read")
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
-
+    /**
+     * @Groups("read")
+     */
     public function getLogin(): ?string
     {
         return $this->login;
@@ -152,7 +176,9 @@ class Veterinaire
 
         return $this;
     }
-
+    /**
+     * @Groups("read")
+     */
     public function getPwd(): ?string
     {
         return $this->pwd;
@@ -164,7 +190,9 @@ class Veterinaire
 
         return $this;
     }
-
+    /**
+     * @Groups("read")
+     */
     public function getNom(): ?string
     {
         return $this->nom;
@@ -176,7 +204,9 @@ class Veterinaire
 
         return $this;
     }
-
+    /**
+     * @Groups("read")
+     */
     public function getPrenom(): ?string
     {
         return $this->prenom;
@@ -188,7 +218,9 @@ class Veterinaire
 
         return $this;
     }
-
+    /**
+     * @Groups("read")
+     */
     public function getEmail(): ?string
     {
         return $this->email;
@@ -200,7 +232,9 @@ class Veterinaire
 
         return $this;
     }
-
+    /**
+     * @Groups("read")
+     */
     public function getStatus(): ?string
     {
         return $this->status;
@@ -212,7 +246,9 @@ class Veterinaire
 
         return $this;
     }
-
+    /**
+     * @Groups("read")
+     */
     public function getLundi(): ?string
     {
         return $this->lundi;
@@ -224,7 +260,9 @@ class Veterinaire
 
         return $this;
     }
-
+    /**
+     * @Groups("read")
+     */
     public function getMardi(): ?string
     {
         return $this->mardi;
@@ -236,7 +274,9 @@ class Veterinaire
 
         return $this;
     }
-
+    /**
+     * @Groups("read")
+     */
     public function getMercredi(): ?string
     {
         return $this->mercredi;
@@ -248,7 +288,9 @@ class Veterinaire
 
         return $this;
     }
-
+    /**
+     * @Groups("read")
+     */
     public function getJeudi(): ?string
     {
         return $this->jeudi;
@@ -260,7 +302,9 @@ class Veterinaire
 
         return $this;
     }
-
+    /**
+     * @Groups("read")
+     */
     public function getVendredi(): ?string
     {
         return $this->vendredi;
@@ -272,7 +316,9 @@ class Veterinaire
 
         return $this;
     }
-
+    /**
+     * @Groups("read")
+     */
     public function getSamedi(): ?string
     {
         return $this->samedi;
@@ -284,43 +330,51 @@ class Veterinaire
 
         return $this;
     }
-
+    /**
+     * @Groups("read")
+     */
     public function getAdrCabinet(): ?string
     {
-        return $this->adr_cabinet;
+        return $this->adrcabinet;
     }
 
-    public function setAdrCabinet(string $adr_cabinet): self
+    public function setAdrCabinet(string $adrcabinet): self
     {
-        $this->adr_cabinet = $adr_cabinet;
+        $this->adrcabinet = $adrcabinet;
 
         return $this;
     }
-
+    /**
+     * @Groups("read")
+     */
     public function getNumPro(): ?string
     {
-        return $this->num_pro;
+        return $this->numpro;
     }
 
-    public function setNumPro(string $num_pro): self
+    public function setNumPro(string $numpro): self
     {
-        $this->num_pro = $num_pro;
+        $this->numpro = $numpro;
 
         return $this;
     }
-
+    /**
+     * @Groups("read")
+     */
     public function getNumFixe(): ?string
     {
-        return $this->num_fixe;
+        return $this->numfixe;
     }
 
-    public function setNumFixe(string $num_fixe): self
+    public function setNumFixe(string $numfixe): self
     {
-        $this->num_fixe = $num_fixe;
+        $this->numfixe = $numfixe;
 
         return $this;
     }
-
+    /**
+     * @Groups("read")
+     */
     public function getType(): ?string
     {
         return $this->type;
@@ -397,5 +451,49 @@ class Veterinaire
     public function __toString()
     {
         return $this.$this->getPrenom();
+    }
+    /**
+     * @Groups("read")
+     */
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Animal[]
+     */
+    public function getAnimals(): Collection
+    {
+        return $this->animals;
+    }
+
+    public function addAnimal(Animal $animal): self
+    {
+        if (!$this->animals->contains($animal)) {
+            $this->animals[] = $animal;
+            $animal->setVet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnimal(Animal $animal): self
+    {
+        if ($this->animals->removeElement($animal)) {
+            // set the owning side to null (unless already changed)
+            if ($animal->getVet() === $this) {
+                $animal->setVet(null);
+            }
+        }
+
+        return $this;
     }
 }

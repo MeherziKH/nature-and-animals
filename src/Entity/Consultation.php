@@ -9,9 +9,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     normalizationContext= {"groups" = {"read"}})
+ *     normalizationContext= {"groups" = {"read"}},
+ *     denormalizationContext={"groups"={"write"}},
  *         collectionOperations={"get", "post"},
  *         itemOperations={"get", "put", "delete"},
+ *     paginationItemsPerPage=6
  * )
  * @ORM\Entity(repositoryClass=ConsultationRepository::class)
  */
@@ -21,38 +23,38 @@ class Consultation
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("read")
+     * @Groups("read","write")
      */
     private $id;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups("read")
+     * @Groups("read","write")
      */
     private $date;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read")
+     * @Groups("read","write")
      */
     private $time;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read")
+     * @Groups("read","write")
      */
     private $approved;
 
     /**
      *
      * @ORM\ManyToOne(targetEntity=Membre::class, inversedBy="consultations")
-     * @Groups("read")
+     * @Groups("read","write")
      */
     private $membre;
 
     /**
      * @ORM\ManyToOne(targetEntity=Veterinaire::class, inversedBy="consultations")
-     * @Groups("read")
+     * @Groups("read","write")
      */
     private $vet;
 
