@@ -1,0 +1,33 @@
+
+<table border="1">
+<tr>
+    <td>Id</td>
+    <td>Nom</td>
+    <td>prenom</td>
+    <td>mail</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+{% for vet in listVeterinaires %}
+    <tr>
+        <td>
+            {{ vet.id }}
+        </td>
+        <td>
+            {{ vet.nom }}
+        </td>
+        <td>
+            {{ vet.prenom }}
+        </td>
+        <td>
+            {{ vet.email }}
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+{% endfor %}
+</table>
