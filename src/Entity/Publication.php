@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ApiResource(
+ * attributes={"order"={"viewsno": "DESC"}},
  * normalizationContext= {"groups" = {"read"}},
  * collectionOperations={
  *      "get",
@@ -45,7 +46,7 @@ class Publication
 
     /**
      * @Groups({"read", "write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=10000000)
      */
     private $description;
 
@@ -119,6 +120,23 @@ class Publication
 
     private $targetDirectory = "media/publications/";
     private $targetDirectoryFile = "files/publications/";
+
+    /**
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $titre;
+
+    /**
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $views;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $viewsno;
 
 
     public function getId(): ?int
@@ -327,5 +345,41 @@ class Publication
         $firstLevel = $name[0];
         $secondLevel = $firstLevel . $name[1];
         return $firstLevel . DIRECTORY_SEPARATOR . $secondLevel . DIRECTORY_SEPARATOR . $name;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(?string $titre): self
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+    public function getViews(): ?string
+    {
+        return $this->views;
+    }
+
+    public function setViews(?string $views): self
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    public function getViewsno(): ?int
+    {
+        return $this->viewsno;
+    }
+
+    public function setViewsno(int $viewsno): self
+    {
+        $this->viewsno = $viewsno;
+
+        return $this;
     }
 }
