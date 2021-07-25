@@ -15,6 +15,7 @@ use LogicException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * @ApiResource(
+ * attributes={"order"={"buyedd": "DESC"}},
  * normalizationContext= {"groups" = {"read"}},
  * collectionOperations={
  *      "get",
@@ -96,6 +97,17 @@ class Product
 
 
     private $targetDirectory = "media/products/";
+
+    /**
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $buyed;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $buyedd;
 
     public function __construct()
     {
@@ -260,6 +272,30 @@ class Product
         $firstLevel = $name[0];
         $secondLevel = $firstLevel . $name[1];
         return $firstLevel . DIRECTORY_SEPARATOR . $secondLevel . DIRECTORY_SEPARATOR . $name;
+    }
+
+    public function getBuyed(): ?string
+    {
+        return $this->buyed;
+    }
+
+    public function setBuyed(?string $buyed): self
+    {
+        $this->buyed = $buyed;
+        $this->buyedd = $buyed;
+        return $this;
+    }
+
+    public function getBuyedd(): ?int
+    {
+        return $this->buyedd;
+    }
+
+    public function setBuyedd(?int $buyedd): self
+    {
+        $this->buyedd = $buyedd;
+
+        return $this;
     }
 
 }

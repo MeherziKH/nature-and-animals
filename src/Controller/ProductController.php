@@ -3,17 +3,27 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\{Response, JsonResponse};
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
 {
-    /**
-     * @Route("/api/productsList/{id}", name="productsList", methods={"GET"})
-     */
-    public function productsList($id): Response
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
     {
-        $product = $this->getDoctrine()->getRepository(Product::class)->getByCategory($id);
+        $this->em = $em;
+    }
+
+    /**
+     * @Route("/bestSeller", name="bestSeller")
+     */
+    public function bestSeller(): Response
+    {
+        $productRepo = $this->em->getRepository(Product::class);
+        $products = $productRepo->bestSeller();
+        return new JsonResponse($products, Response::HTTP_OK);
     }
 }

@@ -47,4 +47,16 @@ class OrderRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByMonth($start_date , $end_date): ?array
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.date > :sd')
+            ->andWhere('o.date < :ed')
+            ->setParameter('sd', $start_date)
+            ->setParameter('ed', $end_date)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

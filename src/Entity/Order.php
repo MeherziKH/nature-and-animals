@@ -2,15 +2,20 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\{ApiResource, ApiFilter};
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\{SearchFilter, OrderFilter, RangeFilter, BooleanFilter, DateFilter};
 use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+
 /**
+
  * @ApiResource(normalizationContext= {"groups" = {"read"}})
+ * @ApiFilter(DateFilter::class, properties={"date": DateFilter::INCLUDE_NULL_BEFORE_AND_AFTER})
+ * @ApiFilter(OrderFilter::class, properties={"id"="desc", "date"="desc"})
  * @ORM\Entity(repositoryClass=OrderRepository::class)
  * @ORM\Table(name="`order`")
  */
@@ -53,6 +58,12 @@ class Order
      * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="ordr")
      */
     private $details;
+
+    /**
+     * @Groups("read")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $curtomerId;
 
     public function __construct()
     {
@@ -140,6 +151,18 @@ class Order
                 $detail->setOrdr(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCurtomerId(): ?string
+    {
+        return $this->curtomerId;
+    }
+
+    public function setCurtomerId(string $curtomerId): self
+    {
+        $this->curtomerId = $curtomerId;
 
         return $this;
     }
