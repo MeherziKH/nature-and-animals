@@ -9,10 +9,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+
 /**
- * @ApiResource(
- *     normalizationContext= {"groups" = {"read"}}
- * )
+ * @ApiResource(normalizationContext= {"groups" = {"read"}})
  * @ORM\Entity(repositoryClass=MembreRepository::class)
  */
 class Membre
@@ -56,6 +55,7 @@ class Membre
     private $tel;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $email;
@@ -75,11 +75,18 @@ class Membre
      */
     private $consultations;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="membre")
+     */
+    private $ordres;
+
     public function __construct()
     {
         $this->consultations = new ArrayCollection();
         $this->noteVets = new ArrayCollection();
+        $this->ordres = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -202,6 +209,23 @@ class Membre
             $this->noteVets[] = $noteVet;
             $noteVet->setMembreId($this);
         }
+            return $this;
+        }
+    
+     /**
+     * @return Collection|Order[]
+     */
+    public function getOrdres(): Collection
+    {
+        return $this->ordres;
+    }
+
+    public function addOrdre(Order $ordre): self
+    {
+        if (!$this->ordres->contains($ordre)) {
+            $this->ordres[] = $ordre;
+            $ordre->setMembre($this);
+        }
 
         return $this;
     }
@@ -212,6 +236,18 @@ class Membre
             // set the owning side to null (unless already changed)
             if ($noteVet->getMembreId() === $this) {
                 $noteVet->setMembreId(null);
+            }
+    }
+
+        return $this;
+    }
+
+    public function removeOrdre(Order $ordre): self
+    {
+        if ($this->ordres->removeElement($ordre)) {
+            // set the owning side to null (unless already changed)
+            if ($ordre->getMembre() === $this) {
+                $ordre->setMembre(null);
             }
         }
 

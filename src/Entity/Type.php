@@ -4,50 +4,76 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TypeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
- * @ApiResource()
+ * @ApiResource(normalizationContext= {"groups" = {"read"}},
+ * denormalizationContext= {"groups" = {"write"}}
+ * )
  * @ORM\Entity(repositoryClass=TypeRepository::class)
  */
+
+
 class Type
 {
     /**
      * @ORM\Id
+     * @Groups("read")
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
+     * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
+     * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255)
      */
     private $description;
 
     /**
+     * @Groups({"read", "write"})
      * @ORM\Column(type="boolean")
      */
     private $refAnimal;
 
     /**
+     * @Groups({"read", "write"})
      * @ORM\Column(type="boolean")
      */
     private $image;
 
     /**
+     * @Groups({"read", "write"})
      * @ORM\Column(type="boolean")
      */
     private $lieu;
 
     /**
+     * @Groups({"read", "write"})
      * @ORM\Column(type="boolean")
      */
     private $file;
+
+    /**
+     * @Groups("read")
+     * @ORM\OneToMany(targetEntity=Publication::class, mappedBy="type")
+     */
+    private $publications;
+
+    public function __construct()
+    {
+        $this->publications = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,6 +148,37 @@ class Type
     public function setFile(bool $file): self
     {
         $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * @Groups("read")
+     * @return Collection|Publication[]
+     */
+    public function getPublications(): Collection
+    {
+        return $this->publications;
+    }
+
+    public function addPublication(Publication $publication): self
+    {
+        if (!$this->publications->contains($publication)) {
+            $this->publications[] = $publication;
+            $publication->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removePublication(Publication $publication): self
+    {
+        if ($this->publications->removeElement($publication)) {
+            // set the owning side to null (unless already changed)
+            if ($publication->getType() === $this) {
+                $publication->setType(null);
+            }
+        }
 
         return $this;
     }
