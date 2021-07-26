@@ -7,15 +7,17 @@ use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(normalizationContext= {"groups" = {"read"}})
  * @ORM\Entity(repositoryClass=OrderRepository::class)
  * @ORM\Table(name="`order`")
  */
 class Order
 {
     /**
+     * @Groups("read")
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -23,16 +25,19 @@ class Order
     private $id;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="date")
      */
     private $date;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="string", length=255)
      */
     private $status;
 
     /**
+     * @Groups("read")
      * @ORM\Column(type="float")
      */
     private $sum;
@@ -43,6 +48,7 @@ class Order
     private $membre;
 
     /**
+     * @Groups("read")
      * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="ordr")
      */
     private $details;
@@ -106,8 +112,10 @@ class Order
     }
 
     /**
+     * @Groups("read")
      * @return Collection|OrderDetails[]
      */
+
     public function getDetails(): Collection
     {
         return $this->details;

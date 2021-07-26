@@ -84,14 +84,27 @@ class Membre
     private $idPublication;
 
     /**
+     * @ORM\OneToMany(targetEntity=NoteVet::class, mappedBy="membre_id")
+     */
+    private $noteVets;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Consultation::class, mappedBy="membre")
+     */
+    private $consultations;
+
+    /**
      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="membre")
      */
     private $ordres;
 
     public function __construct()
     {
+        $this->consultations = new ArrayCollection();
+        $this->noteVets = new ArrayCollection();
         $this->ordres = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -201,6 +214,23 @@ class Membre
     }
 
     /**
+     * @return Collection|NoteVet[]
+     */
+    public function getNoteVets(): Collection
+    {
+        return $this->noteVets;
+    }
+
+    public function addNoteVet(NoteVet $noteVet): self
+    {
+        if (!$this->noteVets->contains($noteVet)) {
+            $this->noteVets[] = $noteVet;
+            $noteVet->setMembreId($this);
+        }
+            return $this;
+        }
+
+     /**
      * @return Collection|Order[]
      */
     public function getOrdres(): Collection
@@ -218,6 +248,18 @@ class Membre
         return $this;
     }
 
+    public function removeNoteVet(NoteVet $noteVet): self
+    {
+        if ($this->noteVets->removeElement($noteVet)) {
+            // set the owning side to null (unless already changed)
+            if ($noteVet->getMembreId() === $this) {
+                $noteVet->setMembreId(null);
+            }
+    }
+
+        return $this;
+    }
+
     public function removeOrdre(Order $ordre): self
     {
         if ($this->ordres->removeElement($ordre)) {
@@ -229,6 +271,42 @@ class Membre
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return(string)$this->getId();
+    }
+
+    /**
+     * @return Collection|Consultation[]
+     */
+    public function getConsultations(): Collection
+    {
+        return $this->consultations;
+    }
+
+    public function addConsultation(Consultation $consultation): self
+    {
+        if (!$this->consultations->contains($consultation)) {
+            $this->consultations[] = $consultation;
+            $consultation->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConsultation(Consultation $consultation): self
+    {
+        if ($this->consultations->removeElement($consultation)) {
+            // set the owning side to null (unless already changed)
+            if ($consultation->getMembre() === $this) {
+                $consultation->setMembre(null);
+            }
+        }
+
+        return $this;
+    }
+
 
     /**
      * Returning a salt is only needed, if you are not using a modern

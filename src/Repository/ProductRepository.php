@@ -46,5 +46,11 @@ class ProductRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+    */public function getByCategory($id)
+        {
+            return $this->createQueryBuilder('p')
+                ->where('p.category_id LIKE :id')
+                ->setParameter('id' , $id)
+                ->getQuery()->getResult();
+        }
 }
