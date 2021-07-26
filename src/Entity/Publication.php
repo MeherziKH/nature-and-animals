@@ -367,7 +367,7 @@ class Publication
     public function setViews(?string $views): self
     {
         $this->views = $views;
-
+        $this->viewsno = $views;
         return $this;
     }
 

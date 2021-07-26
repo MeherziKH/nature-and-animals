@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MembreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -43,28 +43,10 @@ class Membre
     private $login;
 
     /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @Groups("read")
+     * @ORM\Column(type="string", length=255)
      */
     private $password;
-
-    private $plainPassword;
-
-    /**
-     * @return mixed
-     */
-    public function getPlainPassword()
-    {
-        return $this->plainPassword;
-    }
-
-    /**
-     * @param mixed $plainPassword
-     */
-    public function setPlainPassword($plainPassword): void
-    {
-        $this->plainPassword = $plainPassword;
-    }
 
     /**
      * @Groups("read")
@@ -229,7 +211,7 @@ class Membre
         }
             return $this;
         }
-
+    
      /**
      * @return Collection|Order[]
      */
@@ -305,27 +287,6 @@ class Membre
         }
 
         return $this;
-    }
-
-
-    /**
-     * Returning a salt is only needed, if you are not using a modern
-     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
-     *
-     * @see UserInterface
-     */
-    public function getSalt(): ?string
-    {
-        return null;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials()
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        $this->plainPassword = null;
     }
 
 

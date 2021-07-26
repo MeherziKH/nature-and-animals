@@ -96,7 +96,7 @@ class ConsultationController extends AbstractController
      */
     public function consNonAprouved($id, SerializerInterface $serializer){
         $date = new \DateTime();
-        $con = $this->getDoctrine()->getRepository(Consultation::class)->findBy(['vet' => $id, 'approved'=>'0'],
+        $con = $this->getDoctrine()->getRepository(Consultation::class)->findBy(['vet' => $id, 'approved'=>''],
             ['date' => 'DESC']);
         //var_dump($con);
         $jsonContent = $serializer->serialize($con, 'json',['groups'=>'read']);
