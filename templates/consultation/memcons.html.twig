@@ -1,0 +1,23 @@
+<table border="1">
+    <tr>
+        <td>Id</td>
+        <td>vet</td>
+        <td>mem</td>
+        <td>date</td>
+    </tr>
+    {% for cons in consultations %}
+        <tr>
+            <td>
+                {{ cons.id }}
+            </td>
+            <td>
+                {{ cons.vet }}
+            </td>
+            <td>
+                {{ cons.membre }}
+            </td>
+            <td>{{ cons.date }}
+            </td>
+        </tr>
+    {% endfor %}
+</table>
