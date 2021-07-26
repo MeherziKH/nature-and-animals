@@ -15,8 +15,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Category
 {
     /**
+     * @ORM\Id
      * @Groups("read")
-      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
@@ -29,6 +29,7 @@ class Category
     private $libelle;
 
     /**
+     * @Groups("read")
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category")
      */
     private $products;
@@ -61,7 +62,10 @@ class Category
         return $this;
     }
 
-
+    /**
+     * @Groups("read")
+     * @return Collection|Product[]
+     */
     public function getProducts(): Collection
     {
         return $this->products;

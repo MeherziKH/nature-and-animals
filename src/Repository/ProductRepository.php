@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use EasyCorp\Bundle\EasyAdminBundle\Field\HiddenField;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -53,4 +55,14 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('id' , $id)
                 ->getQuery()->getResult();
         }
+
+    public function bestSeller(): ?array
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy( 'p.buyedd' ,' desc')
+            ->getQuery()
+            ->setMaxResults(3)
+            ->getResult();
+    }
+
 }
