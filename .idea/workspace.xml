@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8b8dad8d-6621-4153-a828-40a97b6d9604" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/EventListener/OrderEventListener.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/nature-and-animals.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nature-and-animals.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/OrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Order.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/OrderRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/OrderRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ProductRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProductRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventListener/OrderEventListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventListener/OrderEventListener.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,7 +218,7 @@
       <workItem from="1626635093285" duration="17270000" />
       <workItem from="1626898547527" duration="2089000" />
       <workItem from="1626983268616" duration="1813000" />
-      <workItem from="1627205115615" duration="15831000" />
+      <workItem from="1627205115615" duration="18129000" />
     </task>
     <servers />
   </component>
