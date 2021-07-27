@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\OrderDetailsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -28,16 +30,20 @@ class OrderDetails
     private $quantity;
 
     /**
-
      * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="details")
      */
     private $ordr;
 
     /**
      * @Groups("read")
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="OrderDetails")
      */
     private $product;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -68,15 +74,18 @@ class OrderDetails
         return $this;
     }
 
-    public function getProduct(): int
+    public function getProduct(): ?Product
     {
         return $this->product;
     }
 
-    public function setProduct(int $product): self
+    public function setProduct(?Product $product): self
     {
         $this->product = $product;
 
         return $this;
     }
+
+
+
 }
