@@ -2,66 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f2d6ea91-5275-44f4-ad27-0acf976010d1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/config/packages/vich_uploader.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20210711125232.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20210725123125.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/Version20210725140838.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/files/publications/01c90e056a087b6dc5ff4c7b3eb7ebea347bda12.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/files/publications/71faa92b4fce95afbca8242704e041c199bb06a3.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/files/publications/788dfd98cfe3acdf59ace5583ded8b8fa2a99367.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/files/publications/825d426d12f68866e2cb23c24037f79dc0cd537f.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/files/publications/8f4bcb02427f8309926935a1e469b9760fb3cead.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/files/publications/9d899a612c84503406a5d050134d1a5930228891.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/files/publications/accc88c1707c7f736742d752da9bff898a4aee1e.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/files/publications/b3a6a7f0a9b00ccf4bda0a79a8809bb89e30938c.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/files/publications/e85eea83001be31a6b35f74f2e5c9e3a1187efc6.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/files/publications/ef7a8a49eb75e08760ad3d801b93b8a05ede20be.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/media/publications/0ea5d8b4ee7966381e38375fccf8b9b94b25a995.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/media/publications/22217112c4f2cbd3f2377c920e22e53f73c90838.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/media/publications/40bed89aa549da795a3a79926e5a04801a64b907.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/media/publications/448f57c3f4b0a5198ea082e11dac8495ffccd99b.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/media/publications/53eddf9fd40ec0547f930c676c2bac80d93877fa.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/media/publications/5d709867f4aabc83e7f8408a88c9c9a2933462a1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/media/publications/65ee87358afa4fe575935ff0d1eb4a85cf87f5f2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/media/publications/6bd320b59820d3c63a8989bf43f32146d376499c.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/media/publications/744284902204cccbe81fe9143ad11e85d4182de7.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/media/publications/757d73c083ebaada706683b89baaccb8542cff59.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/media/publications/a67dd8abb2f4c0c71e32e6d0d09a7c52b2d1be17.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/media/publications/b274fedd401e21cc4ecf71a3f78b36238f430e0f.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/media/publications/b94e7d5fa7317cde9b7db250e5298d7d38896425.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/media/publications/bff93f7f77207d8983a1e211744ab446983c84ef.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/media/publications/fe59a158de611b7bbeac341251eded6a1d6a5c99.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/OrderController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/ProductController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Encoder/MultipartDecoder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Category.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Order.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/OrderDetails.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Product.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/CategoryRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/OrderDetailsRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/OrderRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/ProductRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Serializer/UploadedFileDenormalizer.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/order/index.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/product/index.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/publication/index.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/publication_type/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/nature-and-animals.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nature-and-animals.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/api_platform.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/api_platform.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20210725112144.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20210725200954.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Animal.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Animal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Membre.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Membre.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Publication.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Publication.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Type.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Type.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,7 +194,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="8b8dad8d-6621-4153-a828-40a97b6d9604" name="Default Changelist" comment="" />
+      <changelist id="f2d6ea91-5275-44f4-ad27-0acf976010d1" name="Default Changelist" comment="" />
       <created>1624139198924</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -277,6 +218,7 @@
       <workItem from="1625489435562" duration="1867000" />
       <workItem from="1625512311547" duration="2240000" />
       <workItem from="1625565729039" duration="1412000" />
+      <workItem from="1627308252020" duration="1952000" />
     </task>
     <servers />
   </component>
